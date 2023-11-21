@@ -12,11 +12,12 @@ var (
 	store = sessions.NewCookieStore(key)
 )
 
-func logout(w http.ResponseWriter, r *http.Request) {
+func Logout(w http.ResponseWriter, r *http.Request) {
 	session, _ := store.Get(r, "cookie-name")
 
 	session.Values["authenticated"] = false
 	session.Save(r, w)
+	http.Redirect(w, r, "/", http.StatusFound)
 }
 
 func main() {
@@ -25,7 +26,7 @@ func main() {
 	r.HandleFunc("/", Home)
 	r.HandleFunc("/form", Form)
 	r.HandleFunc("/secret", Secret)
-	r.HandleFunc("/logout", logout)
+	r.HandleFunc("/logout", Logout)
 
 	http.ListenAndServe(":80", r)
 }

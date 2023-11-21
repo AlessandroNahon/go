@@ -13,15 +13,19 @@ type Todo struct {
 type TodoPageData struct {
 	PageTitle string
 	Todos     []Todo
+	Action    string
 }
 
 func Home(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("layout.html"))
+	tmpl := template.Must(template.ParseFiles("home.html"))
 
 	session, _ := store.Get(r, "cookie-name")
 
-	session.Values["authenticated"] = true
-	session.Save(r, w)
+	if r.Method == http.MethodPost {
+		session.Values["authenticated"] = true
+		session.Save(r, w)
+		http.Redirect(w, r, "/secret", http.StatusFound)
+	}
 
 	data := TodoPageData{
 		PageTitle: "My TODO list",
@@ -30,6 +34,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 			{Title: "Task 2", Done: true},
 			{Title: "Task 3", Done: true},
 		},
+		Action: "Log In",
 	}
 	tmpl.Execute(w, data)
 }

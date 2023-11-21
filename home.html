@@ -1,4 +1,8 @@
 <h1>{{.PageTitle}}</h1>
+<form method="POST">
+  <label>{{.Action}}</label>
+  <input type="submit">
+</form>
 <ul>
   {{range .Todos}}
     {{if .Done}}
