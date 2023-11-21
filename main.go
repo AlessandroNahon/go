@@ -1,10 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/gorilla/sessions"
 )
 
 type Todo struct {
@@ -23,7 +25,12 @@ type ContactDetails struct {
 	Message string
 }
 
-func HomeRoute(w http.ResponseWriter, r *http.Request) {
+var (
+	key   = []byte("super-secret-key")
+	store = sessions.NewCookieStore(key)
+)
+
+func home(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("layout.html"))
 
 	data := TodoPageData{
@@ -37,7 +44,7 @@ func HomeRoute(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, data)
 }
 
-func FormRoute(w http.ResponseWriter, r *http.Request) {
+func form(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("form.html"))
 
 	if r.Method != http.MethodPost {
@@ -56,11 +63,39 @@ func FormRoute(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, struct{ Success bool }{true})
 }
 
+func secret(w http.ResponseWriter, r *http.Request) {
+	session, _ := store.Get(r, "cookie-name")
+
+	if auth, ok := session.Values["authenticated"].(bool); !ok || !auth {
+		http.Error(w, "Forbidden", http.StatusForbidden)
+		return
+	}
+
+	fmt.Fprintln(w, "The cake is a lie!")
+}
+
+func login(w http.ResponseWriter, r *http.Request) {
+	session, _ := store.Get(r, "cookie-name")
+
+	session.Values["authenticated"] = true
+	session.Save(r, w)
+}
+
+func logout(w http.ResponseWriter, r *http.Request) {
+	session, _ := store.Get(r, "cookie-name")
+
+	session.Values["authenticated"] = false
+	session.Save(r, w)
+}
+
 func main() {
 	r := mux.NewRouter()
 
-	r.HandleFunc("/", HomeRoute)
-	r.HandleFunc("/form", FormRoute)
+	r.HandleFunc("/", home)
+	r.HandleFunc("/form", form)
+	r.HandleFunc("/secret", secret)
+	r.HandleFunc("/login", login)
+	r.HandleFunc("/logout", logout)
 
 	http.ListenAndServe(":80", r)
 }
