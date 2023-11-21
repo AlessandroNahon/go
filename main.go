@@ -3,6 +3,8 @@ package main
 import (
 	"html/template"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 type Todo struct {
@@ -16,8 +18,10 @@ type TodoPageData struct {
 }
 
 func main() {
+	r := mux.NewRouter()
+
 	tmpl := template.Must(template.ParseFiles("layout.html"))
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		data := TodoPageData{
 			PageTitle: "My TODO list",
 			Todos: []Todo{
@@ -28,5 +32,5 @@ func main() {
 		}
 		tmpl.Execute(w, data)
 	})
-	http.ListenAndServe(":80", nil)
+	http.ListenAndServe(":80", r)
 }
