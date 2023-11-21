@@ -25,7 +25,7 @@ func main() {
 
 	r.HandleFunc("/", Home)
 	r.HandleFunc("/form", Form)
-	r.HandleFunc("/secret", Secret)
+	r.HandleFunc("/app", Authenticated)
 	r.HandleFunc("/logout", Logout)
 
 	http.ListenAndServe(":80", r)

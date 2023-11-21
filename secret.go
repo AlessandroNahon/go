@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func Secret(w http.ResponseWriter, r *http.Request) {
+func Authenticated(w http.ResponseWriter, r *http.Request) {
 	session, _ := store.Get(r, "cookie-name")
 
 	if auth, ok := session.Values["authenticated"].(bool); !ok || !auth {

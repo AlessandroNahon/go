@@ -1,14 +1,18 @@
 <h1>{{.PageTitle}}</h1>
 <form method="POST">
-  <label>{{.Action}}</label>
-  <input type="submit">
+  <input type="submit" value={{.Action}}>
 </form>
+{{if .Auth}}
+  <a href="/logout">
+    Log Out
+  </a>
+{{end}}
 <ul>
   {{range .Todos}}
-    {{if .Done}}
-      <li class="done">{{.Title}}</li>
-      {{else}}
-      <li>{{.Title}}</li>
-    {{end}}
+    <li>
+      <a href={{.Route}}>
+        {{.Title}}
+      </a>
+    </li>
   {{end}}
 </ul>
