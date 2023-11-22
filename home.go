@@ -5,14 +5,14 @@ import (
 	"net/http"
 )
 
-type Todo struct {
+type Route struct {
 	Title string
 	Route string
 }
 
-type TodoPageData struct {
+type RoutePageData struct {
 	PageTitle string
-	Todos     []Todo
+	Routes    []Route
 	Action    string
 	Auth      bool
 }
@@ -39,9 +39,9 @@ func Home(w http.ResponseWriter, r *http.Request) {
 		actionText = "App"
 	}
 
-	data := TodoPageData{
+	data := RoutePageData{
 		PageTitle: "Home",
-		Todos: []Todo{
+		Routes: []Route{
 			{Title: "Home", Route: "/"},
 			{Title: "App", Route: "/app"},
 			{Title: "Form", Route: "/form"},
