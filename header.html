@@ -1,0 +1,14 @@
+{{define "header"}}
+<body>
+<nav>
+  <ul>
+    {{range .Routes}}
+    <li>
+      <a href={{.Route}}>
+        {{.Title}}
+      </a>
+    </li>
+    {{end}}
+  </ul>
+</nav>
+{{end}}

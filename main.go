@@ -7,9 +7,26 @@ import (
 	"github.com/gorilla/sessions"
 )
 
+type Route struct {
+	Title string
+	Route string
+}
+
+type RoutePageData struct {
+	PageTitle string
+	Routes    []Route
+	Action    string
+	Auth      bool
+}
+
 var (
-	key   = []byte("super-secret-key")
-	store = sessions.NewCookieStore(key)
+	key    = []byte("super-secret-key")
+	store  = sessions.NewCookieStore(key)
+	routes = []Route{
+		{Title: "Home", Route: "/"},
+		{Title: "App", Route: "/app"},
+		{Title: "Contact", Route: "/form"},
+	}
 )
 
 func Logout(w http.ResponseWriter, r *http.Request) {

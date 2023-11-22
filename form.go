@@ -12,11 +12,15 @@ type ContactDetails struct {
 }
 
 func Form(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("form.html"))
-
+	tmpl := template.Must(template.New("form").ParseFiles("form.html", "header.html"))
+	data := RoutePageData{
+		PageTitle: "Contact",
+		Routes:    routes,
+		Action:    "",
+		Auth:      false,
+	}
 	if r.Method != http.MethodPost {
-		tmpl.Execute(w, nil)
-		return
+		tmpl.Execute(w, data)
 	}
 
 	details := ContactDetails{
@@ -27,5 +31,5 @@ func Form(w http.ResponseWriter, r *http.Request) {
 
 	_ = details
 
-	tmpl.Execute(w, struct{ Success bool }{true})
+	tmpl.Execute(w, nil)
 }

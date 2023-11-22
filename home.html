@@ -1,18 +1,12 @@
-<h1>{{.PageTitle}}</h1>
-<form method="POST">
-  <input type="submit" value={{.Action}}>
-</form>
-{{if .Auth}}
-  <a href="/logout">
-    Log Out
-  </a>
-{{end}}
-<ul>
-  {{range .Routes}}
-    <li>
-      <a href={{.Route}}>
-        {{.Title}}
-      </a>
-    </li>
+{{define "home"}}
+  {{template "header" .}}
+  <h1>{{.PageTitle}}</h1>
+  <form method="POST">
+    <input type="submit" value={{.Action}}>
+  </form>
+  {{if .Auth}}
+    <a href="/logout">
+      Log Out
+    </a>
   {{end}}
-</ul>
+{{end}}
