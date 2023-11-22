@@ -2,13 +2,22 @@
 <body>
 <nav>
   <ul>
+    {{$root := .}}
     {{range .Routes}}
+    {{if and (not $root.Auth) (eq .Title "App")}}
+    {{else}}
     <li>
       <a href={{.Route}}>
         {{.Title}}
       </a>
     </li>
     {{end}}
+    {{end}}
   </ul>
+  {{if .Auth}}
+  <a href="/logout">
+    Log Out
+  </a>
+  {{end}}
 </nav>
 {{end}}

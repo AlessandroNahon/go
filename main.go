@@ -25,7 +25,6 @@ var (
 	routes = []Route{
 		{Title: "Home", Route: "/"},
 		{Title: "App", Route: "/app"},
-		{Title: "Contact", Route: "/form"},
 	}
 )
 
@@ -41,7 +40,6 @@ func main() {
 	r := mux.NewRouter()
 
 	r.HandleFunc("/", Home)
-	r.HandleFunc("/form", Form)
 	r.HandleFunc("/app", Authenticated)
 	r.HandleFunc("/logout", Logout)
 
