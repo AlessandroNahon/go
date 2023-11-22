@@ -1,7 +1,9 @@
 {{define "home"}}
   {{template "header" .}}
   <h1>{{.PageTitle}}</h1>
-  <form method="POST">
-    <input type="submit" value={{.Action}}>
-  </form>
+  {{if not .Auth}}
+    <form method="POST">
+      <input type="submit" value={{.Action}}>
+    </form>
+  {{end}}
 {{end}}

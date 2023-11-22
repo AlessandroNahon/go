@@ -21,16 +21,10 @@ func Home(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	actionText := "Log In"
-
-	if isAuthenticated {
-		actionText = "App"
-	}
-
 	data := RoutePageData{
 		PageTitle: "Home",
 		Routes:    routes,
-		Action:    actionText,
+		Action:    "Log In",
 		Auth:      isAuthenticated,
 	}
 	tmpl.Execute(w, data)
