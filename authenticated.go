@@ -1,12 +1,11 @@
 package main
 
 import (
-	"html/template"
 	"net/http"
 )
 
 func Authenticated(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.New("authenticated").ParseFiles("authenticated.html", "header.html"))
+	tmpl := parseHeaderLayout("./web/templates/authenticated.html", true)
 	session, _ := store.Get(r, "cookie-name")
 
 	if auth, ok := session.Values["authenticated"].(bool); !ok || !auth {

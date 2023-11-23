@@ -1,12 +1,11 @@
 package main
 
 import (
-	"html/template"
 	"net/http"
 )
 
 func Home(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.New("home").ParseFiles("home.html", "header.html"))
+	tmpl := parseHeaderLayout("./web/templates/home.html", true)
 
 	session, _ := store.Get(r, "cookie-name")
 	isAuthenticated := session.Values["authenticated"] == true
