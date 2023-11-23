@@ -5,7 +5,7 @@ import (
 )
 
 func Authenticated(w http.ResponseWriter, r *http.Request) {
-	tmpl := parseHeaderLayout("./web/templates/authenticated.html", true)
+	tmpl := parseLayoutTemplate("./web/templates/authenticated.html", true)
 	session, _ := store.Get(r, "cookie-name")
 
 	if auth, ok := session.Values["authenticated"].(bool); !ok || !auth {
@@ -17,7 +17,7 @@ func Authenticated(w http.ResponseWriter, r *http.Request) {
 		PageTitle: "App",
 		Routes:    routes,
 		Action:    "",
-		Auth:      session.Values["authenticated"] == true,
+		Auth:      session.Values["authenticated"].(bool),
 	}
 	tmpl.Execute(w, data)
 }

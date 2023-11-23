@@ -26,12 +26,12 @@ var (
 	key    = []byte("super-secret-key")
 	store  = sessions.NewCookieStore(key)
 	routes = []Route{
-		{Title: "Home", Route: "/"},
+		{Title: "Login", Route: "/"},
 		{Title: "App", Route: "/app"},
 	}
 )
 
-func parseHeaderLayout(f string, h bool) *template.Template {
+func parseLayoutTemplate(f string, h bool) *template.Template {
 	header := "./web/templates/header.html"
 	name := strings.Split(filepath.Base(f), ".")[0]
 
@@ -52,7 +52,7 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 func main() {
 	r := mux.NewRouter()
 
-	r.HandleFunc("/", Home)
+	r.HandleFunc("/", Login)
 	r.HandleFunc("/app", Authenticated)
 	r.HandleFunc("/logout", Logout)
 

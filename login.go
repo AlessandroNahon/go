@@ -4,8 +4,8 @@ import (
 	"net/http"
 )
 
-func Home(w http.ResponseWriter, r *http.Request) {
-	tmpl := parseHeaderLayout("./web/templates/home.html", true)
+func Login(w http.ResponseWriter, r *http.Request) {
+	tmpl := parseLayoutTemplate("./web/templates/home.html", true)
 
 	session, _ := store.Get(r, "cookie-name")
 	isAuthenticated := session.Values["authenticated"] == true
@@ -21,7 +21,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := RoutePageData{
-		PageTitle: "Home",
+		PageTitle: "Login",
 		Routes:    routes,
 		Action:    "Log In",
 		Auth:      isAuthenticated,
