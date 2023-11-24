@@ -6,12 +6,12 @@
       <title>Log In | CFA Tools</title>
     </head>
 
-    <body>
+    <body class="h-screen flex items-center flex-col">
       {{ template "header" . }}
-      <h1>{{.PageTitle}}</h1>
+      <h1 class="text-5xl">{{.PageTitle}}</h1>
       {{if not .Auth}}
       <form method="POST">
-        <input type="submit" value={{.Action}}>
+        <input class="px-2 py-1 bg-blue-400 rounded-lg cursor-pointer hover:bg-blue-300 transition ease-out" type="submit" value={{.Action}}>
       </form>
       {{end}}
     </body>

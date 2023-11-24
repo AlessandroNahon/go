@@ -23,7 +23,7 @@ var (
 	key    = []byte("super-secret-key")
 	store  = sessions.NewCookieStore(key)
 	routes = []Route{
-		{Title: "Login", Route: "/"},
+		{Title: "Home", Route: "/"},
 		{Title: "App", Route: "/app"},
 	}
 )
