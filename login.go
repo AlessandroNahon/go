@@ -8,6 +8,7 @@ import (
 
 func Login(w http.ResponseWriter, r *http.Request) {
 	paths := []string{
+		filepath.Join("./templates/", "meta.html"),
 		filepath.Join("./templates/", "header.html"),
 		filepath.Join("./templates/", "login.html"),
 	}
