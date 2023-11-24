@@ -1,11 +1,17 @@
 package main
 
 import (
+	"html/template"
 	"net/http"
+	"path/filepath"
 )
 
 func Login(w http.ResponseWriter, r *http.Request) {
-	tmpl := parseLayoutTemplate("./web/templates/home.html", true)
+	paths := []string{
+		filepath.Join("./templates/", "header.html"),
+		filepath.Join("./templates/", "login.html"),
+	}
+	tmpl := template.Must(template.New("login").ParseFiles(paths...))
 
 	session, _ := store.Get(r, "cookie-name")
 	isAuthenticated := session.Values["authenticated"] == true
@@ -26,5 +32,6 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		Action:    "Log In",
 		Auth:      isAuthenticated,
 	}
+
 	tmpl.Execute(w, data)
 }

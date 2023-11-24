@@ -1,0 +1,19 @@
+{{define "login"}}
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <link rel="stylesheet" type="text/css" href="static/output.css">
+      <title>Log In | CFA Tools</title>
+    </head>
+
+    <body>
+      {{ template "header" . }}
+      <h1>{{.PageTitle}}</h1>
+      {{if not .Auth}}
+      <form method="POST">
+        <input type="submit" value={{.Action}}>
+      </form>
+      {{end}}
+    </body>
+  </html>
+{{end}}
