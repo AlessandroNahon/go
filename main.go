@@ -17,6 +17,12 @@ type RoutePageData struct {
 	Routes    []Route
 	Action    string
 	Auth      bool
+	Films     map[string][]Film
+}
+
+type Film struct {
+	Title    string
+	Director string
 }
 
 var (
@@ -25,6 +31,13 @@ var (
 	routes = []Route{
 		{Title: "Home", Route: "/"},
 		{Title: "App", Route: "/app"},
+	}
+	defaultFilms = map[string][]Film{
+		"Films": {
+			{Title: "The Godfather", Director: "Francis Ford Coppola"},
+			{Title: "Blade Runner", Director: "Ridley Scott"},
+			{Title: "The Thing", Director: "John Carpenter"},
+		},
 	}
 )
 
@@ -42,6 +55,7 @@ func main() {
 	r.HandleFunc("/", Login)
 	r.HandleFunc("/app", Authenticated)
 	r.HandleFunc("/logout", Logout)
+	r.HandleFunc("/add-film/", List)
 
 	fs := http.FileServer(http.Dir("static"))
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", fs))

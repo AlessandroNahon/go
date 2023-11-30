@@ -25,6 +25,7 @@ func Authenticated(w http.ResponseWriter, r *http.Request) {
 		Routes:    routes,
 		Action:    "",
 		Auth:      session.Values["authenticated"].(bool),
+		Films:     defaultFilms,
 	}
 	tmpl.Execute(w, data)
 }

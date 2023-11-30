@@ -1,11 +1,18 @@
 {{define "header"}}
-<nav class="w-screen py-5 px-2 border-b-2 border-gray-800">
-  <ul>
+<nav class="py-5 border-b-2 border-gray-800">
+  <ul class="flex flex-row-reverse w-screen">
     {{$root := .}}
+    {{if .Auth}}
+    <li class="px-2">
+      <a href="/logout">
+        Log Out
+      </a>
+    </li>
+    {{end}}
     {{range .Routes}}
     {{if and (not $root.Auth) (eq .Title "App")}}
     {{else}}
-    <li>
+    <li class="px-2">
       <a href={{.Route}}>
         {{.Title}}
       </a>
@@ -13,10 +20,6 @@
     {{end}}
     {{end}}
   </ul>
-  {{if .Auth}}
-  <a href="/logout">
-    Log Out
-  </a>
-  {{end}}
+
 </nav>
 {{end}}
