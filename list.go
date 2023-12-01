@@ -12,8 +12,10 @@ func List(w http.ResponseWriter, r *http.Request) {
 	title := r.PostFormValue("title")
 	director := r.PostFormValue("director")
 
-	if (title != "") || (director != "") {
+	if (title != "") && (director != "") {
 		tmpl := template.Must(template.ParseFiles(filepath.Join("./templates/", "authenticated.html")))
 		tmpl.ExecuteTemplate(w, "film-list-element", Film{Title: title, Director: director})
 	}
+
+	w.WriteHeader(http.StatusNoContent)
 }
