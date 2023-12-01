@@ -21,7 +21,7 @@ func Authenticated(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := RoutePageData{
-		PageTitle: "App",
+		PageTitle: "",
 		Routes:    routes,
 		Action:    "",
 		Auth:      session.Values["authenticated"].(bool),

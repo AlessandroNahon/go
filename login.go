@@ -28,7 +28,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := RoutePageData{
-		PageTitle: "Welcome!",
+		PageTitle: "",
 		Routes:    routes,
 		Action:    "Log In",
 		Auth:      isAuthenticated,

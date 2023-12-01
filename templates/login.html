@@ -6,14 +6,9 @@
       <title>Log In | CFA Tools</title>
     </head>
 
-    <body class="h-screen flex items-center flex-col">
+    <body class="h-screen flex items-center flex-col" style="background-image: url(https://a.1stdibscdn.com/isabelle-menin-photography-changing-moods-bright-green-2-floral-landscape-contemporary-abstract-photo-for-sale/a_434/a_126716521689165852605/Changing_Moods_Green_02_master.jpg) ;">
       {{ template "header" . }}
       <h1 class="text-5xl">{{.PageTitle}}</h1>
-      {{if not .Auth}}
-      <form method="POST">
-        <input class="px-2 py-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer transition ease-out" type="submit" value={{.Action}}>
-      </form>
-      {{end}}
     </body>
   </html>
 {{end}}
